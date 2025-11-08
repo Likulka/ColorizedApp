@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class ColorPaleteViewController: UIViewController {
 
     @IBOutlet var colorPalete: UIView!
     
@@ -18,6 +18,10 @@ final class ViewController: UIViewController {
     @IBOutlet var redColorValue: UILabel!
     @IBOutlet var greenColorValue: UILabel!
     @IBOutlet var blueColorValue: UILabel!
+    
+    @IBOutlet var doneButton: UIButton!
+    
+    weak var delegate: ColorPaleteViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,10 +56,22 @@ final class ViewController: UIViewController {
             alpha: 1.0)
     }
     
+    @IBAction func doneButtonPressed(_ sender: Any) {
+        delegate?.setBackgroundColor(
+            UIColor(
+            red: CGFloat(redColor.value),
+            green: CGFloat(greenColor.value),
+            blue: CGFloat(blueColor.value),
+            alpha: 1.0)
+        )
+        dismiss(animated: true)
+    }
     
     private func string(from slider: UISlider) -> String {
         String(format: "%.2f", slider.value)
     }
+    
+    
 
 }
 
