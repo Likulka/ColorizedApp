@@ -8,19 +8,21 @@
 import UIKit
 
 protocol ColorPaleteViewControllerDelegate: AnyObject {
-    func setBackgroundColor(_ color: UIColor)
+    func setColor(_ color: UIColor)
 }
 
 class StartViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            if let colorVC = segue.destination as? ColorPaleteViewController {
-                colorVC.delegate = self
-            }
+        guard let colorVC = segue.destination as? ColorPaleteViewController else {
+            return
+        }
+            colorVC.delegate = self
+            colorVC.viewColor = view.backgroundColor
         }
 }
 
 extension StartViewController: ColorPaleteViewControllerDelegate {
-    func setBackgroundColor(_ color: UIColor) {
+    func setColor(_ color: UIColor) {
         view.backgroundColor = color
     }
 }
